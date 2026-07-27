@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <meta charset="utf-8">
+ <title>逄予安的控制台</title>
+</head>
+<body style="background:#f2f2f7; font-family:sans-serif; display:flex; justify-content:center; align-items:center; height:100vh; margin:0;">
+ <div style="background:#fff; padding:30px; border-radius:20px; box-shadow:0 4px 20px rgba(0,0,0,0.08); text-align:center;">
+ <h3 style="margin-bottom:20px; color:#1c1c1e;">🔒 手机控制端</h3>
+ <button onclick="send('com.xingin.xhs')" style="width:200px; height:50px; background:#1c1c1e; color:#fff; border:none; border-radius:12px; font-size:16px; font-weight:bold; cursor:pointer; margin-bottom:10px;">打开小红书</button>
+ <br>
+ <button onclick="send('com.tencent.mm')" style="width:200px; height:50px; background:#007aff; color:#fff; border:none; border-radius:12px; font-size:16px; font-weight:bold; cursor:pointer;">打开微信</button>
+ <div id="status" style="margin-top:15px; font-size:14px; color:#8e8e93;">等待指令</div>
+ </div>
+ <script>
+ async function send(pkg) {
+ const status = document.getElementById('status');
+ status.innerText = '正在发送...';
+ try {
+ const res = await fetch('https://zhangxinchuang-server-j6l2.onrender.com/open_app', {
+ method: 'POST',
+ headers: {
+ 'Authorization': 'Bearer 5201314TTqsl',
+ 'Content-Type': 'application/json'
+ },
+ body: JSON.stringify({ package_name: pkg })
+ });
+ const data = await res.json();
+ status.innerText = '指令已送达';
+ } catch(e) {
+ status.innerText = '发送失败，请检查网络';
+ }
+ }
+ </script>
+</body>
+</html>
